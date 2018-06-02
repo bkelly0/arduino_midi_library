@@ -41,6 +41,7 @@ inline MidiInterface<SerialPort, Settings>::MidiInterface(SerialPort& inSerial)
     , mCurrentRpnNumber(0xffff)
     , mCurrentNrpnNumber(0xffff)
     , mThruActivated(true)
+	, mThruChannelOnly(true)
     , mThruFilterMode(Thru::Full)
 {
     mNoteOffCallback                = 0;
@@ -108,6 +109,7 @@ void MidiInterface<SerialPort, Settings>::begin(Channel inChannel)
 
     mThruFilterMode = Thru::Full;
     mThruActivated  = true;
+	mThruChannelOnly = true;
 }
 
 // -----------------------------------------------------------------------------
@@ -1336,7 +1338,7 @@ void MidiInterface<SerialPort, Settings>::thruFilter(Channel inChannel)
                 break;
         }
     }
-    else
+    else if (!mThruChannelOnly)
     {
         // Send the message to the output
         switch (mMessage.type)
