@@ -107,7 +107,7 @@ void MidiInterface<SerialPort, Settings>::begin(Channel inChannel)
     mMessage.data1   = 0;
     mMessage.data2   = 0;
 
-    mThruFilterMode = Thru::Full;
+    mThruFilterMode = Thru::DifferentChannel;
     mThruActivated  = true;
 	mThruChannelOnly = true;
 }
